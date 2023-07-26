@@ -22,7 +22,8 @@
 main() {
     int genislik = 45, yukseklik = 15, i, j;
     int tahta[yukseklik][genislik];
-    for (i=0; i<yukseklik; i++) for (j=0; j<genislik; j++) scanf("%d", &tahta[i][j]);
+    yolGirdisiAl(genislik, yukseklik, tahta);
+    //for (i=0; i<yukseklik; i++) for (j=0; j<genislik; j++) scanf("%d", &tahta[i][j]);
     //labirentCoz(genislik, yukseklik, tahta);
     yolBul(genislik, yukseklik, tahta);
     while (1);

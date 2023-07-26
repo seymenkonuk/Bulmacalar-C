@@ -5,15 +5,86 @@ Labirent Çözer
 #define LABIRENT_H
 #define HASSASIYET 1000
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include "../lib/rastgele.h" // https://github.com/seymenkonuk/Rastgele-C commit 1
+#include "../lib/imlec.h" // https://github.com/seymenkonuk/Imlec-Kontrol-C commit 1
 
 enum {
     YOL, DUVAR, KONUM, GIDILMEYECEK_YOL
 };
 
+int yolGirdisiAl(int genislik, int yukseklik, int platform[yukseklik][genislik]); // Girilen Girdiyi Platforma Yazar
 int labirentCoz(int genislik, int yukseklik, int platform[yukseklik][genislik]); // Labirentin En Kýsa Çýkýþ Yolunu Bulur
 int yolBul(int genislik, int yukseklik, int platform[yukseklik][genislik]);      // Yol Bulma Algoritmasý
+
+int yolGirdisiAl(int genislik, int yukseklik, int platform[yukseklik][genislik]) {
+    int yonler[4][2] = {{1,0}, {0,1}, {-1,0}, {0,-1}};
+    system("cls"); int i, j;
+    for (i=0; i<genislik+2; i++) printf("%c ", 254);
+    for (i=0; i<yukseklik+1; i++) printf("\n%c", 254);
+    for (i=0; i<genislik+1; i++) printf(" %c", 254);
+    for (i=1; i<yukseklik+1; i++) { gotoxy((genislik+1)*2, i); printf("%c", 254);}
+    
+    // Platformu Sýfýrla
+    for (i=0; i<yukseklik; i++) for (j=0; j<genislik; j++) platform[i][j] = YOL;
+    
+    // Girdiyi Al
+    int konumSayisi = 0, x = 0, y = 0;
+    while (1) {
+        gotoxy(2*x+2, y+1);
+        char tus = getch();
+        int yon = -1;
+        
+        if (tus == 'd' || tus == 'D')
+            yon = 0;
+        else if (tus == 's' || tus == 'S')
+            yon = 1;
+        else if (tus == 'a' || tus == 'A')
+            yon = 2;
+        else if (tus == 'w' || tus == 'W')
+            yon = 3;
+        else if (tus == YOL + '0') {
+            if (platform[y][x] == KONUM) konumSayisi--;
+            platform[y][x] = YOL;
+            printf("  ");
+        }
+        else if (tus == DUVAR + '0') {
+            if (platform[y][x] == KONUM) konumSayisi--;
+            platform[y][x] = DUVAR;
+            printf("%c ", 254);
+        }
+        else if (tus == KONUM+'0' && konumSayisi < 2) {
+            if (platform[y][x] == KONUM) konumSayisi--;
+            platform[y][x] = KONUM;
+            printf("+ ");
+            konumSayisi++;
+        } else if (tus == '\r' && konumSayisi == 2) {
+            gotoxy(0, yukseklik+1);
+            return;
+        }
+        
+        if (yon == -1) continue;
+        
+        int yeni_x = x + yonler[yon][0];
+        int yeni_y = y + yonler[yon][1];
+        
+        if (yeni_x == -1) {
+            yeni_x = genislik-1;
+            yeni_y--;
+        }
+        
+        if (yeni_x == genislik) {
+            yeni_x = 0;
+            yeni_y++;
+        }
+        
+        if (yeni_y < 0) continue;
+        if (yeni_y >= yukseklik) continue;
+        
+        x = yeni_x; y = yeni_y;
+    }
+}
 
 int labirentCoz(int genislik, int yukseklik, int platform[yukseklik][genislik]) {
     int yonler[4][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}};
@@ -31,7 +102,7 @@ int labirentCoz(int genislik, int yukseklik, int platform[yukseklik][genislik]) 
                 else if (platform[i][j] == GIDILMEYECEK_YOL)
                     printf(". ");
                 else 
-                    printf("  ");
+                    printf("+ ");
             }
             printf("\n");
         } 
@@ -258,7 +329,7 @@ int yolBul(int genislik, int yukseklik, int platform[yukseklik][genislik]) {
             else if (platform[i][j] == GIDILMEYECEK_YOL)
                 printf(". ");
             else 
-                printf("  ");
+                printf("+ ");
         }
         printf("\n");
     } 
