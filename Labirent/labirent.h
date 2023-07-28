@@ -14,11 +14,11 @@ enum {
     YOL, DUVAR, KONUM, GIDILMEYECEK_YOL
 };
 
-int yolGirdisiAl(int genislik, int yukseklik, int platform[yukseklik][genislik]); // Girilen Girdiyi Platforma Yazar
+void yolGirdisiAl(int genislik, int yukseklik, int platform[yukseklik][genislik]); // Girilen Girdiyi Platforma Yazar
 int labirentCoz(int genislik, int yukseklik, int platform[yukseklik][genislik]); // Labirentin En Kýsa Çýkýþ Yolunu Bulur
 int yolBul(int genislik, int yukseklik, int platform[yukseklik][genislik]);      // Yol Bulma Algoritmasý
 
-int yolGirdisiAl(int genislik, int yukseklik, int platform[yukseklik][genislik]) {
+void yolGirdisiAl(int genislik, int yukseklik, int platform[yukseklik][genislik]) {
     int yonler[4][2] = {{1,0}, {0,1}, {-1,0}, {0,-1}};
     system("cls"); int i, j;
     for (i=0; i<genislik+2; i++) printf("%c ", 254);
@@ -93,7 +93,10 @@ int labirentCoz(int genislik, int yukseklik, int platform[yukseklik][genislik]) 
     void labirentiYazdir(int platform[yukseklik][genislik]) {
         printf("\n\n");
         int i, j;
+        for (i=0; i<genislik+2; i++) printf("%c ", 254);
+        printf("\n");
         for (i=0; i<yukseklik; i++) {
+            printf("%c ", 254);
             for (j=0; j<genislik; j++) {
                 if (platform[i][j] == DUVAR) 
                     printf("%c ", 254);
@@ -104,8 +107,10 @@ int labirentCoz(int genislik, int yukseklik, int platform[yukseklik][genislik]) 
                 else 
                     printf("+ ");
             }
-            printf("\n");
+            printf("%c\n", 254);
         } 
+        for (i=0; i<genislik+2; i++) printf("%c ", 254);
+        printf("\n");
     }
     void konumlariBul() {
         int i, j, adet = 0;
@@ -320,7 +325,10 @@ int yolBul(int genislik, int yukseklik, int platform[yukseklik][genislik]) {
                 platform[i][j] = YOL;
     
     printf("\n\n");
+    for (i=0; i<genislik+2; i++) printf("%c ", 254);
+    printf("\n");
     for (i=0; i<yukseklik; i++) {
+        printf("%c ", 254);
         for (j=0; j<genislik; j++) {
             if (platform[i][j] == DUVAR) 
                 printf("%c ", 254);
@@ -331,7 +339,9 @@ int yolBul(int genislik, int yukseklik, int platform[yukseklik][genislik]) {
             else 
                 printf("+ ");
         }
-        printf("\n");
+        printf("%c\n", 254);
     } 
+    for (i=0; i<genislik+2; i++) printf("%c ", 254);
+    printf("\n");
 }
 #endif
