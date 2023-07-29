@@ -167,6 +167,7 @@ int cozApartmanlarBulmacasi(int boyut, int ust[boyut], int sag[boyut], int alt[b
                 // Diðer Çözümleri Bulmak için
                 getch(); 
                 i=boyut-1; j=boyut-1;
+                yon = -1; continue;
             }
         }
         
