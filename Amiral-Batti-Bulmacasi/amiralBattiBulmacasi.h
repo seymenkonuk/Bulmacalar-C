@@ -60,7 +60,7 @@ void girdiAlAmiralBattiBulmacasi(int boyut, int yatay[boyut], int dikey[boyut], 
         } else if (tus >= '0' && tus <= '7') {
             platform[konumy-2][konumx-2] = tus - '0';
             printf("%c", tus);
-        } else if (tus == 8 /*backspace*/ && konumx!=1 && konumx!=1) {
+        } else if (tus == 8 /*backspace*/ && konumx!=1 && konumy!=1) {
             platform[konumy-2][konumx-2] = -1;
             printf(" ");
         }
@@ -190,6 +190,7 @@ int cozAmiralBattiBulmacasi(int boyut, int yatay[boyut], int dikey[boyut], int p
                 // Diğer Çözümleri Bulmak için
                 getch(); 
                 i=boyut-1; j=boyut-1;
+                yon = -1; continue;
             }
         }
         // j geriden Limit Dışına Çıktıysa
